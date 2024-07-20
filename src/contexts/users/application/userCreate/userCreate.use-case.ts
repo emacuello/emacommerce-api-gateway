@@ -2,15 +2,16 @@ import { Injectable } from 'src/utils/dependencyInject/injectable';
 import { PrimitiveUser, User } from '../../domain/entities/Users';
 import { UsersRepository } from '../../domain/repository/users.repository';
 import { UserCreateDtos } from './userCreate.dto';
-import { map, Observable } from 'rxjs';
+import { ErrorCreateException } from '../../domain/errors/errorCreate.exception';
 
 @Injectable()
 export class UserCreateUseCase {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  run(dto: UserCreateDtos): Observable<{ user: Partial<PrimitiveUser> }> {
+  async run(dto: UserCreateDtos): Promise<Partial<PrimitiveUser>> {
     const $user = User.create(dto);
-    const user = this.userRepository.save($user);
-    return user.pipe(map((user) => ({ user: user.toValue() })));
+    const newUser = await this.userRepository.save($user);
+    if (!newUser) throw new ErrorCreateException('Error al crear el usuario');
+    return newUser.toValue();
   }
 }
