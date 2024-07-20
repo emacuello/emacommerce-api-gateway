@@ -4,11 +4,15 @@ import * as joi from 'joi';
 interface Env {
   PORT: number;
   NATS_SERVER_URL: string;
+  RMQ_SERVER_URL: string;
+  RMQ_QUEUE: string;
 }
 const envsSchema = joi
   .object({
     PORT: joi.number().required(),
     NATS_SERVER_URL: joi.string().required(),
+    RMQ_SERVER_URL: joi.string().required(),
+    RMQ_QUEUE: joi.string().required(),
   })
   .unknown(true);
 
