@@ -2,23 +2,36 @@ import { USER_SERVICE } from 'src/utils/ms/msNames';
 import { User } from '../../domain/entities/Users';
 import { UsersRepository } from '../../domain/repository/users.repository';
 import { ClientProxy } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Inject } from '@nestjs/common';
 
 export class UserMicroservice extends UsersRepository {
   constructor(@Inject(USER_SERVICE) private client: ClientProxy) {
     super();
   }
-  async save(user: User): Promise<Observable<any>> {
-    const result = await this.client.send({ cmd: 'createUser' }, user);
 
-    return result;
+  save(user: User): Observable<User> {
+    const result = this.client.send({ cmd: 'createUser' }, user);
+
+    return from(result);
   }
-  async delete(id: string): Promise<void> {}
+  async delete(id: string): Promise<Observable<void>> {
+    const result = this.client.send({ cmd: 'deleteUser' }, id);
+    return from(result);
+  }
 
-  async findAll(): Promise<User[]> {}
+  findAll(): Observable<User[]> {
+    const result = this.client.send({ cmd: 'findAllUsers' }, {});
+    return from(result);
+  }
 
-  async findById(email: string): Promise<User> {}
+  findById(id: string): Observable<User> {
+    const result = this.client.send({ cmd: 'findUserById' }, id);
+    return from(result);
+  }
 
-  async update(user: User): Promise<void> {}
+  async update(user: User): Promise<Observable<any>> {
+    const result = this.client.send({ cmd: 'updateUser' }, user);
+    return from(result);
+  }
 }

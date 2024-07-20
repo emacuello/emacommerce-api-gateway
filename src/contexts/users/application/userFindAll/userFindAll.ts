@@ -1,12 +1,15 @@
+import { map, Observable } from 'rxjs';
 import { PrimitiveUser } from '../../domain/entities/Users';
 import { UsersRepository } from '../../domain/repository/users.repository';
 
 export class UserFindAllUseCase {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  async run(): Promise<{ users: Partial<PrimitiveUser>[] }> {
-    const users = await this.userRepository.findAll();
-
-    return { users: users.map((user) => user.toValue()) };
+  run(): Observable<{ users: Partial<PrimitiveUser>[] }> {
+    return this.userRepository.findAll().pipe(
+      map((users) => ({
+        users: users.map((user) => user.toValue()),
+      })),
+    );
   }
 }
