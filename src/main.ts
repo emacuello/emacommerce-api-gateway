@@ -12,6 +12,7 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+  app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
     .setTitle('EmaCommerce API')
     .setDescription('Emacommerce dividida en microservicios')

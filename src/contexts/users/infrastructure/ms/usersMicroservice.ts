@@ -13,27 +13,27 @@ export class UserMicroservice extends UsersRepository {
   }
 
   save(user: User): Promise<User> {
-    const result = this.client.send({ cmd: 'createUser' }, user);
+    const result = this.client.send('createUser', user);
 
     return firstValueFrom(result);
   }
   async delete(id: string): Promise<string> {
-    const result = this.client.send({ cmd: 'deleteUser' }, id);
+    const result = this.client.send('deleteUser', id);
     return firstValueFrom(result);
   }
 
   findAll(): Promise<User[]> {
-    const result = this.client.send({ cmd: 'findAllUsers' }, {});
+    const result = this.client.send('findAllUsers', {});
     return firstValueFrom(result);
   }
 
   findById(id: string): Promise<User> {
-    const result = this.client.send({ cmd: 'findUserById' }, id);
+    const result = this.client.send('findUserById', id);
     return firstValueFrom(result);
   }
 
   async update(user: User): Promise<string> {
-    const result = this.client.send({ cmd: 'updateUser' }, user);
+    const result = this.client.send('updateUser', user);
     return firstValueFrom(result);
   }
 }

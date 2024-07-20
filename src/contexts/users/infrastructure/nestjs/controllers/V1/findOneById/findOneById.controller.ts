@@ -4,11 +4,14 @@ import { UserFindOneByIdUseCase } from 'src/contexts/users/application/userFindO
 import { UserNotFoundException } from 'src/contexts/users/domain/errors/not-found.exception';
 import { RpcException } from '@nestjs/microservices';
 import { PrimitiveUser } from 'src/contexts/users/domain/entities/Users';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags(V1_ROUTES.NAME)
 @Controller(V1_ROUTES.BASE)
 export class UserFindbyIdController {
   constructor(private readonly userFindbyIdUseCase: UserFindOneByIdUseCase) {}
 
+  @ApiOperation({ summary: 'Listar un usuario por id' })
   @Get(V1_ROUTES.USER.FIND_ONE)
   async run(
     @Param('id', ParseUUIDPipe) id: string,
