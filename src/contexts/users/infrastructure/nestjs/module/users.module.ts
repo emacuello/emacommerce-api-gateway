@@ -9,6 +9,11 @@ import { UserFindOneByIdUseCase } from 'src/contexts/users/application/userFindO
 import { UserUpdateUseCase } from 'src/contexts/users/application/userUpdate/userUpdate.use-case';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { USER_SERVICE } from 'src/utils/ms/msNames';
+import { UserFindAllController } from '../controllers/V1/findAll/findAll.controller';
+import { UserDeleteController } from '../controllers/V1/deleteUser/deleteUser.controller';
+import { UserFindbyIdController } from '../controllers/V1/findOneById/findOneById.controller';
+import { UserUpdateController } from '../controllers/V1/updateUser/updateUser.controller';
+import { envs } from 'src/config/envs';
 
 @Module({
   imports: [
@@ -17,18 +22,25 @@ import { USER_SERVICE } from 'src/utils/ms/msNames';
         name: USER_SERVICE,
         transport: Transport.NATS,
         options: {
-          servers: ['nats://localhost:4222'],
+          servers: [envs.NATS_SERVER_URL],
         },
       },
     ]),
   ],
-  controllers: [UserCreateController],
+  controllers: [
+    UserCreateController,
+    UserFindAllController,
+    UserDeleteController,
+    UserFindbyIdController,
+    UserUpdateController,
+  ],
   providers: [
     UserCreateUseCase,
     UserDeleteUseCase,
     UserFindAllUseCase,
     UserFindOneByIdUseCase,
     UserUpdateUseCase,
+    UserMicroservice,
     {
       provide: UsersRepository,
       useExisting: UserMicroservice,

@@ -3,14 +3,15 @@ import { V1_ROUTES } from '../../routes';
 import { UserCreateUseCase } from 'src/contexts/users/application/userCreate/userCreate.use-case';
 import { UserCreateControllerDto } from './createUser.dto';
 import { PrimitiveUser } from 'src/contexts/users/domain/entities/Users';
+import { Observable } from 'rxjs';
 
 @Controller(V1_ROUTES.BASE)
 export class UserCreateController {
   constructor(private userCreateUseCase: UserCreateUseCase) {}
   @Post()
-  async run(@Body() userDto: UserCreateControllerDto): Promise<{
+  run(@Body() userDto: UserCreateControllerDto): Observable<{
     user: Partial<PrimitiveUser>;
   }> {
-    return await this.userCreateUseCase.run(userDto);
+    return this.userCreateUseCase.run(userDto);
   }
 }

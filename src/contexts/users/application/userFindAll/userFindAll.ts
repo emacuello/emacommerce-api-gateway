@@ -1,7 +1,9 @@
 import { map, Observable } from 'rxjs';
 import { PrimitiveUser } from '../../domain/entities/Users';
 import { UsersRepository } from '../../domain/repository/users.repository';
+import { Injectable } from 'src/utils/dependencyInject/injectable';
 
+@Injectable()
 export class UserFindAllUseCase {
   constructor(private readonly userRepository: UsersRepository) {}
 

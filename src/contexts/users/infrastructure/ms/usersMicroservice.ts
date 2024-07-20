@@ -4,7 +4,9 @@ import { UsersRepository } from '../../domain/repository/users.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { from, Observable } from 'rxjs';
 import { Inject } from '@nestjs/common';
+import { Injectable } from 'src/utils/dependencyInject/injectable';
 
+@Injectable()
 export class UserMicroservice extends UsersRepository {
   constructor(@Inject(USER_SERVICE) private client: ClientProxy) {
     super();
