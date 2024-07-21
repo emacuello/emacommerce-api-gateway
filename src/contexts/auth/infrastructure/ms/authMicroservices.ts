@@ -17,12 +17,12 @@ export class AuthMicroservice extends AuthRepository {
     return firstValueFrom(result);
   }
   signUp(data: Auth): Promise<string> {
-    const result = this.client.send('createUser', data);
+    const result = this.client.send('signUp', data);
 
     return firstValueFrom(result);
   }
   signSocial(): Promise<string> {
-    const result = this.client.send('createUser', {});
+    const result = this.client.send('socialUser', {});
 
     return firstValueFrom(result);
   }
