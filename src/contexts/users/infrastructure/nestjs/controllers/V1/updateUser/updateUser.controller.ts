@@ -29,8 +29,9 @@ export class UserUpdateController {
     @Body() dto: UserUpdateControllerDto,
   ): Promise<string> {
     try {
-      const result = await this.userUpdateUseCase.run(dto, id);
-      return result;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, confirmPassword, ...rest } = dto;
+      return await this.userUpdateUseCase.run(rest, id);
     } catch (error) {
       if (error instanceof ErrorUpdateException) {
         throw new RpcException(error.message);

@@ -9,7 +9,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class SingUpDto {
+export class SingInDto {
   @IsOptional()
   @ApiPropertyOptional({
     example: 'patch2000@mail.com',

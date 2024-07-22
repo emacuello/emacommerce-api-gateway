@@ -1,8 +1,13 @@
-import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { UserFindOneByIdUseCase } from 'src/contexts/users/application/userFindOneById/userFindOnebyId.use-case';
 import { UserNotFoundException } from 'src/contexts/users/domain/errors/not-found.exception';
-import { RpcException } from '@nestjs/microservices';
 import { PrimitiveUser } from 'src/contexts/users/domain/entities/Users';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -21,7 +26,7 @@ export class UserFindbyIdController {
       return result;
     } catch (error) {
       if (error instanceof UserNotFoundException) {
-        throw new RpcException(error.message);
+        throw new BadRequestException(error.message);
       }
     }
   }

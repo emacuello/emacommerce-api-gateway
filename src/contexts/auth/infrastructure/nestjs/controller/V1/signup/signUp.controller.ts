@@ -1,9 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+} from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { UserCreateService } from 'src/contexts/auth/application/userCreate/userCreate.service';
 import { SingUpDto } from './signUp.dto';
 import { ErrorCreateException } from 'src/contexts/auth/domain/errors/errorCreate.exception';
-import { RpcException } from '@nestjs/microservices';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthMicroservice } from 'src/contexts/auth/infrastructure/ms/authMicroservices';
 
@@ -20,7 +25,7 @@ export class SigUpController {
       return await this.client.run(dto);
     } catch (error) {
       if (error instanceof ErrorCreateException) {
-        throw new RpcException(error.message);
+        throw new BadRequestException(error.message);
       }
     }
   }

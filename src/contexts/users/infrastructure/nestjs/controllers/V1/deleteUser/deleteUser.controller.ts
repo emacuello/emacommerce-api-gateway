@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Delete,
   HttpStatus,
@@ -8,7 +9,6 @@ import {
 import { V1_ROUTES } from '../../routes';
 import { UserDeleteUseCase } from 'src/contexts/users/application/userDelete/userDelete.use-case';
 import { ErrorDeleteException } from 'src/contexts/users/domain/errors/errorDelete.exception';
-import { RpcException } from '@nestjs/microservices';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags(V1_ROUTES.NAME)
@@ -28,7 +28,7 @@ export class UserDeleteController {
       return result;
     } catch (error) {
       if (error instanceof ErrorDeleteException) {
-        throw new RpcException(error.message);
+        throw new BadRequestException(error.message);
       }
     }
   }

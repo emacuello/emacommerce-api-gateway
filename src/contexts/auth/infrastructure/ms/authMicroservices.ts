@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { BadRequestException, Inject } from '@nestjs/common';
 import { Auth } from '../../domain/entities/Auth';
 import { AuthRepository } from '../../domain/repository/auth.repository';
 import { AUTH_SERVICE } from 'src/utils/ms/msNames';
@@ -15,14 +15,22 @@ export class AuthMicroservice extends AuthRepository {
     const userRegister = data.toValueSignIn();
     const result = this.client.send('signIn', userRegister);
 
-    return await firstValueFrom(result);
+    try {
+      return await firstValueFrom(result);
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
   async signUp(data: Auth): Promise<string> {
     const userRegister = data.toValueRegister();
 
     const result = this.client.send('signUp', userRegister);
 
-    return await firstValueFrom(result);
+    try {
+      return await firstValueFrom(result);
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
   async signSocial(): Promise<string> {
     const result = this.client.send('socialUser', {});

@@ -32,6 +32,7 @@ export class User {
   static create(dto: UserDto): User {
     return new User(dto);
   }
+
   toValue(): Partial<PrimitiveUser> {
     return {
       id: this.attributes.id,
@@ -47,5 +48,16 @@ export class User {
       createdAt: this.attributes.createdAt,
       updatedAt: this.attributes.updatedAt,
     };
+  }
+}
+
+export class UpdateUser {
+  constructor(public readonly attributes: Partial<PrimitiveUser>) {}
+
+  static create(dto: Partial<PrimitiveUser>): UpdateUser {
+    return new UpdateUser(dto);
+  }
+  toValue(): Partial<PrimitiveUser> {
+    return this.attributes;
   }
 }
