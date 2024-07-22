@@ -11,19 +11,27 @@ export class AuthMicroservice extends AuthRepository {
   constructor(@Inject(AUTH_SERVICE) private client: ClientProxy) {
     super();
   }
-  signIn(data: Auth): Promise<{ token: string }> {
-    const result = this.client.send('signIn', data);
+  async signIn(data: Auth): Promise<{ token: string }> {
+    const userRegister = data.toValueSignIn();
+    const result = this.client.send('signIn', userRegister);
 
-    return firstValueFrom(result);
+    return await firstValueFrom(result);
   }
-  signUp(data: Auth): Promise<string> {
-    const result = this.client.send('signUp', data);
+  async signUp(data: Auth): Promise<string> {
+    const userRegister = data.toValueRegister();
 
-    return firstValueFrom(result);
+    const result = this.client.send('signUp', userRegister);
+
+    return await firstValueFrom(result);
   }
-  signSocial(): Promise<string> {
+  async signSocial(): Promise<string> {
     const result = this.client.send('socialUser', {});
 
-    return firstValueFrom(result);
+    return await firstValueFrom(result);
+  }
+
+  async getAll() {
+    const result = this.client.send('getAll', {});
+    return await firstValueFrom(result);
   }
 }

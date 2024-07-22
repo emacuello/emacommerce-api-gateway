@@ -26,7 +26,7 @@ export class UserCreateControllerDto {
   @IsString()
   @IsEmail()
   email: string;
-
+  username: string;
   @ApiProperty({
     example: '123qweASD.!@',
     description: 'Password del usuario',

@@ -10,7 +10,9 @@ export class UserCreateService {
 
   async run(dto: UserCreateDtos): Promise<string> {
     const $user = Auth.create(dto);
+
     const newUser = await this.userRepository.signUp($user);
+
     if (!newUser) throw new ErrorCreateException('Error al crear el usuario');
     return newUser;
   }

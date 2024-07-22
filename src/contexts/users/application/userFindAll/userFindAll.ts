@@ -8,6 +8,7 @@ export class UserFindAllUseCase {
 
   async run(): Promise<Partial<PrimitiveUser>[]> {
     const users = await this.userRepository.findAll();
+
     return users.map((user) => user.toValue());
   }
 }

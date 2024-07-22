@@ -1,5 +1,5 @@
 import { USER_SERVICE } from 'src/utils/ms/msNames';
-import { User } from '../../domain/entities/Users';
+import { PrimitiveUser, User } from '../../domain/entities/Users';
 import { UsersRepository } from '../../domain/repository/users.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
@@ -22,9 +22,11 @@ export class UserMicroservice extends UsersRepository {
     return firstValueFrom(result);
   }
 
-  findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     const result = this.client.send('findAllUsers', {});
-    return firstValueFrom(result);
+    const users = (await firstValueFrom(result)) as PrimitiveUser[];
+    const u = users.map((user) => new User(user));
+    return u;
   }
 
   findById(id: string): Promise<User> {

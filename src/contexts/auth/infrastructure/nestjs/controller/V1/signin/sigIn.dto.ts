@@ -10,11 +10,11 @@ import {
 } from 'class-validator';
 
 export class SingUpDto {
+  @IsOptional()
   @ApiPropertyOptional({
     example: 'patch2000@mail.com',
     description: 'Email del usuario',
   })
-  @IsOptional()
   @IsString()
   @IsEmail()
   email: string;
@@ -27,21 +27,31 @@ export class SingUpDto {
   })
   username: string;
 
+  @IsNotEmpty({ message: 'Password is required' })
   @ApiProperty({
     example: '123qweASD.!@',
     description: 'Password del usuario',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Password must be a string' })
   @Length(8, 15)
   @Matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.,_-])([A-Za-z\d$@$!%*?&.,_-]|[^ ]){8,15}$/,
+    {
+      message:
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    },
   )
-  @IsStrongPassword({
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1,
-  })
+  @IsStrongPassword(
+    {
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    },
+    {
+      message:
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    },
+  )
   password: string;
 }

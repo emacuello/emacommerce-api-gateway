@@ -84,7 +84,7 @@ export class SingUpDto {
   @IsString()
   @Length(5, 20)
   city: string;
-
+  @ApiProperty({ example: '2000-01-01', description: 'Fecha de nacimiento' })
   @IsString()
   birthdate: string;
 }
