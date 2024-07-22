@@ -6,6 +6,7 @@ interface Env {
   NATS_SERVER_URL: string;
   RMQ_SERVER_URL: string;
   RMQ_QUEUE: string;
+  MQTT_URL: string;
 }
 const envsSchema = joi
   .object({
@@ -13,6 +14,7 @@ const envsSchema = joi
     NATS_SERVER_URL: joi.string().required(),
     RMQ_SERVER_URL: joi.string().required(),
     RMQ_QUEUE: joi.string().required(),
+    MQTT_URL: joi.string().required(),
   })
   .unknown(true);
 
