@@ -3,13 +3,14 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Post,
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { UserCreateService } from 'src/contexts/auth/application/userCreate/userCreate.service';
 import { SingUpDto } from './signUp.dto';
 import { ErrorCreateException } from 'src/contexts/auth/domain/errors/errorCreate.exception';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthMicroservice } from 'src/contexts/auth/infrastructure/ms/authMicroservices';
 
 @ApiTags(V1_ROUTES.NAME)
@@ -19,6 +20,12 @@ export class SigUpController {
     private client: UserCreateService,
     private client2: AuthMicroservice,
   ) {}
+
+  @ApiOperation({ summary: 'Crear usuario' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Usuario creado correctamente',
+  })
   @Post(V1_ROUTES.USER.SIGN_UP)
   async signIn(@Body() dto: SingUpDto) {
     try {

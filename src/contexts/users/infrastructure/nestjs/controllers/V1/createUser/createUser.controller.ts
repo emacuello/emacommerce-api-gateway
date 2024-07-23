@@ -12,9 +12,9 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class UserCreateController {
   constructor(private userCreateUseCase: UserCreateUseCase) {}
 
-  @ApiOperation({ summary: 'Crear un nuevo usuario' })
+  @ApiOperation({ summary: 'LEGACY: Crear un nuevo usuario' })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Usuario creado correctamente',
   })
   @Post()

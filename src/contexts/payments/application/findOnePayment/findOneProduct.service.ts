@@ -1,8 +1,10 @@
+import { Injectable } from 'src/utils/dependencyInject/injectable';
 import { PrimitivePayment } from '../../domain/entities/Payment';
 import { NotFoundPaymentException } from '../../domain/errors/notFoundPayment.exception';
 import { PaymentsRepository } from '../../domain/repository/payments.repository';
 import { FindOnePaymentDto } from './findOnePayment.dto';
 
+@Injectable()
 export class FindOnePaymentService {
   constructor(private readonly paymentRepository: PaymentsRepository) {}
   async run({ id }: FindOnePaymentDto): Promise<PrimitivePayment> {

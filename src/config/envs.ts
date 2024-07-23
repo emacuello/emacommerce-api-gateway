@@ -7,6 +7,9 @@ interface Env {
   RMQ_SERVER_URL: string;
   RMQ_QUEUE: string;
   MQTT_URL: string;
+  KAFKA_URL: string;
+  KAFKA_CLIENTID: string;
+  KAFKA_CONSUMER: string;
 }
 const envsSchema = joi
   .object({
@@ -15,6 +18,9 @@ const envsSchema = joi
     RMQ_SERVER_URL: joi.string().required(),
     RMQ_QUEUE: joi.string().required(),
     MQTT_URL: joi.string().required(),
+    KAFKA_URL: joi.string().required(),
+    KAFKA_CLIENTID: joi.string().required(),
+    KAFKA_CONSUMER: joi.string().required(),
   })
   .unknown(true);
 

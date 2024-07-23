@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { GetOneProductService } from 'src/contexts/products/application/getOneProduct/getOneProduct.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NotFoundProductException } from 'src/contexts/products/domain/errors/notFoundProduct';
 
 @ApiTags(V1_ROUTES.NAME)
@@ -16,6 +16,7 @@ import { NotFoundProductException } from 'src/contexts/products/domain/errors/no
 export class GetOneProductsController {
   constructor(private readonly getOneProductService: GetOneProductService) {}
 
+  @ApiOperation({ summary: 'Obtener un producto por id' })
   @Get(V1_ROUTES.USER.FIND_ONE)
   async getOne(@Param('id', ParseUUIDPipe) id: string) {
     try {

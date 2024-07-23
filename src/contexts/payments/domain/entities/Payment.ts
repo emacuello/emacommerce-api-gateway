@@ -3,6 +3,7 @@ export interface PrimitivePayment {
   amount: number;
   status?: string;
   products: Product[];
+  userId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

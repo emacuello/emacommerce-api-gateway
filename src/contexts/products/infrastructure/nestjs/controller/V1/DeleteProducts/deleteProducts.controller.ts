@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { DeleteProductService } from 'src/contexts/products/application/deleteProduct/deleteProduct.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ErrorDeleteProductException } from 'src/contexts/products/domain/errors/errorDeleted';
 
 @ApiTags(V1_ROUTES.NAME)
@@ -17,6 +17,7 @@ export class DeleteProductsController {
   constructor(private readonly deleteProductService: DeleteProductService) {}
 
   @Delete(V1_ROUTES.USER.DELETE)
+  @ApiOperation({ summary: 'Eliminar producto' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Producto eliminado' })
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     try {
