@@ -5,26 +5,11 @@ import { UserCreateService } from 'src/contexts/auth/application/userCreate/user
 import { UserSignInService } from 'src/contexts/auth/application/userSingIn/userSigIn.service';
 import { AuthRepository } from 'src/contexts/auth/domain/repository/auth.repository';
 import { AuthMicroservice } from '../../ms/authMicroservices';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVICE } from 'src/utils/ms/msNames';
-import { envs } from 'src/config/envs';
+import { ClientsModule } from '@nestjs/microservices';
+import { authMicroserviceConfig } from 'src/config/microservice.config';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: AUTH_SERVICE,
-        transport: Transport.RMQ,
-        options: {
-          urls: [envs.RMQ_SERVER_URL],
-          queue: envs.RMQ_QUEUE,
-          queueOptions: {
-            durable: false,
-          },
-        },
-      },
-    ]),
-  ],
+  imports: [ClientsModule.register([authMicroserviceConfig])],
   controllers: [SigInController, SigUpController],
   providers: [
     UserCreateService,

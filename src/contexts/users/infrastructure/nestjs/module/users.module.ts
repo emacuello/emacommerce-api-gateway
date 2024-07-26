@@ -7,26 +7,15 @@ import { UserDeleteUseCase } from 'src/contexts/users/application/userDelete/use
 import { UserFindAllUseCase } from 'src/contexts/users/application/userFindAll/userFindAll';
 import { UserFindOneByIdUseCase } from 'src/contexts/users/application/userFindOneById/userFindOnebyId.use-case';
 import { UserUpdateUseCase } from 'src/contexts/users/application/userUpdate/userUpdate.use-case';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { USER_SERVICE } from 'src/utils/ms/msNames';
+import { ClientsModule } from '@nestjs/microservices';
 import { UserFindAllController } from '../controllers/V1/findAll/findAll.controller';
 import { UserDeleteController } from '../controllers/V1/deleteUser/deleteUser.controller';
 import { UserFindbyIdController } from '../controllers/V1/findOneById/findOneById.controller';
 import { UserUpdateController } from '../controllers/V1/updateUser/updateUser.controller';
-import { envs } from 'src/config/envs';
+import { usersMicroserviceConfig } from 'src/config/microservice.config';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: USER_SERVICE,
-        transport: Transport.NATS,
-        options: {
-          servers: [envs.NATS_SERVER_URL],
-        },
-      },
-    ]),
-  ],
+  imports: [ClientsModule.register([usersMicroserviceConfig])],
   controllers: [
     UserCreateController,
     UserFindAllController,
