@@ -7,9 +7,6 @@ import {
 @ValidatorConstraint({ name: 'VerifyEmailAndUsername', async: false })
 export class VerifyEmailAndUsername implements ValidatorConstraintInterface {
   validate(email: string, args: ValidationArguments) {
-    console.log(args);
-    console.log(email);
-
     // if (args.object['username'] !== username && args.object['email']) {
     //   return false;
     // }

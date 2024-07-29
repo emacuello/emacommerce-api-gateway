@@ -46,4 +46,7 @@ export class Payment {
   get id(): string {
     return this.payment.id;
   }
+  get userId(): string {
+    return this.payment.user.id;
+  }
 }

@@ -30,8 +30,6 @@ export class SigInController {
     try {
       return this.client.run(dto);
     } catch (error) {
-      console.log('entro??');
-
       if (error instanceof ErrorSignInException) {
         throw new BadRequestException(error.message);
       }

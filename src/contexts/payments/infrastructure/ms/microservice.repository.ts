@@ -17,7 +17,7 @@ export class MicroserviceRepository
   constructor(@Inject(PAYMENT_SERVICE) private client: ClientKafka) {
     super();
   }
-  private ParamsDto = {};
+
   async onModuleInit() {
     this.client.subscribeToResponseOf('create.payment');
     this.client.subscribeToResponseOf('delete.payment');
@@ -26,7 +26,11 @@ export class MicroserviceRepository
     await this.client.connect();
   }
   async save(payment: Payment): Promise<string> {
-    const result = this.client.send('create.payment', payment.toValue());
+    const result = this.client.send('create.payment', {
+      user: { id: payment.userId },
+      amount: payment.amount,
+      products: payment.toValue().products.map((product) => product),
+    });
     try {
       return await firstValueFrom(result);
     } catch (error) {
@@ -46,7 +50,7 @@ export class MicroserviceRepository
     try {
       return Payment.create(await firstValueFrom(result));
     } catch (error) {
-      throw new NotFoundPaymentException(error);
+      throw new NotFoundPaymentException(error.message);
     }
   }
   async getProducts(): Promise<Payment[]> {

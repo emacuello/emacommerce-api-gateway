@@ -4,6 +4,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { FindOnePaymentService } from 'src/contexts/payments/application/findOnePayment/findOneProduct.service';
@@ -17,7 +18,7 @@ export class GetOnePaymentController {
 
   @ApiOperation({ summary: 'Obtener un pago por id' })
   @Get(V1_ROUTES.USER.FIND_ONE)
-  async getOnePayment(@Param('id') id: string) {
+  async getOnePayment(@Param('id', ParseUUIDPipe) id: string) {
     try {
       return await this.getOnePaymentService.run({ id });
     } catch (error) {

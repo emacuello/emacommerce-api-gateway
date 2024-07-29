@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber, IsUUID, ValidateNested } from 'class-validator';
+import { IsArray, IsNumber, IsUUID, ValidateNested } from 'class-validator';
 
 class UserDto {
   @ApiProperty({ example: '4d2936ae-4c37-420d-829a-c0f81d043119' })
@@ -28,6 +28,7 @@ export class PostPaymentsDto {
     ],
     description: 'Listado de productos',
   })
+  @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ProductId)
   products: ProductId[];

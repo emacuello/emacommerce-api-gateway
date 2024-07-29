@@ -23,7 +23,7 @@ export class UserMicroservice extends UsersRepository {
     const result = this.client.send('deleteUser', { id });
     try {
       const deleted = await firstValueFrom(result);
-      console.log('deleted', deleted);
+
       return deleted;
     } catch (error) {
       throw new BadRequestException(error);
