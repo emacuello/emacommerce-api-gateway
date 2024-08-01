@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { UserSignInService } from 'src/contexts/auth/application/userSingIn/userSigIn.service';
-import { SingInDto } from './sigin.dto';
+import { SingInDto } from './sigIn.dto';
 import { ErrorSignInException } from 'src/contexts/auth/domain/errors/errorSignIn.exception';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 

@@ -1,4 +1,4 @@
-FROM node:20.12.2-buster-slim
+FROM node:20.12.2-buster-slim AS builder
 
 WORKDIR /app
 
@@ -8,6 +8,16 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD ["npm", "run", "start"]
+FROM node:20.12.2-buster-slim AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/package*.json ./
+
+COPY --from=builder /app/dist ./dist
+
+COPY --from=builder /app/node_modules ./node_modules
+
+CMD ["npm", "run", "start:prod"]
