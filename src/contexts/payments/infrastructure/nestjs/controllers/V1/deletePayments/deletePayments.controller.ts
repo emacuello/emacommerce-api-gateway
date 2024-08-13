@@ -5,13 +5,19 @@ import {
   Delete,
   HttpStatus,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { DeletePaymentService } from 'src/contexts/payments/application/deletePayment/deletePayment.service';
 import { ErrorDeletePaymentException } from 'src/contexts/payments/domain/errors/errorDeletePayment.exception';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'src/utils/guards/authorization.guard';
+import { Roles } from 'src/utils/decorators/roles.decorator';
+import { Role } from 'src/utils/enums/role.enum';
 
 @ApiTags(V1_ROUTES.NAME)
+@Roles(Role.Admin)
+@UseGuards(RolesGuard)
 @Controller(V1_ROUTES.BASE)
 export class DeletePaymentController {
   constructor(private readonly deletePaymentService: DeletePaymentService) {}

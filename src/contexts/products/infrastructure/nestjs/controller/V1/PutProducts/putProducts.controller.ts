@@ -6,13 +6,19 @@ import {
   Param,
   ParseUUIDPipe,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { PutProductDto } from './putProducts.dto';
 import { UpdateProductService } from 'src/contexts/products/application/updateProduct/updateProduct.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/utils/decorators/roles.decorator';
+import { Role } from 'src/utils/enums/role.enum';
+import { RolesGuard } from 'src/utils/guards/authorization.guard';
 
 @ApiTags(V1_ROUTES.NAME)
+@Roles(Role.Admin)
+@UseGuards(RolesGuard)
 @Controller(V1_ROUTES.BASE)
 export class PutProductsController {
   constructor(private readonly updateProductService: UpdateProductService) {}
