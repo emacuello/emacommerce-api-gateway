@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('EmaCommerce API')
     .setDescription('Emacommerce dividida en microservicios')
     .setVersion('2.0')
+    .addBearerAuth()
     .addTag('EmaCommerce')
     .build();
   const document = SwaggerModule.createDocument(app, config);

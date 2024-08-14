@@ -10,12 +10,18 @@ import { V1_ROUTES } from '../../routes';
 import { CreateProductService } from 'src/contexts/products/application/createProduct/createProduct.service';
 import { ProductsDtos } from './postProduct.dto';
 import { ErrorDeleteProductException } from 'src/contexts/products/domain/errors/errorDeleted';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Roles } from 'src/utils/decorators/roles.decorator';
 import { Role } from 'src/utils/enums/role.enum';
 import { RolesGuard } from 'src/utils/guards/authorization.guard';
 
 @ApiTags(V1_ROUTES.NAME)
+@ApiBearerAuth()
 @Roles(Role.Admin)
 @UseGuards(RolesGuard)
 @Controller(V1_ROUTES.BASE)

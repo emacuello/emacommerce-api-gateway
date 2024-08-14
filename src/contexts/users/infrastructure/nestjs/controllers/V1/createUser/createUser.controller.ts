@@ -5,9 +5,15 @@ import { UserCreateControllerDto } from './createUser.dto';
 import { PrimitiveUser } from 'src/contexts/users/domain/entities/Users';
 import { ErrorCreateException } from 'src/contexts/users/domain/errors/errorCreate.exception';
 import { RpcException } from '@nestjs/microservices';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags(V1_ROUTES.NAME)
+@ApiBearerAuth()
 @Controller(V1_ROUTES.BASE)
 export class UserCreateController {
   constructor(private userCreateUseCase: UserCreateUseCase) {}

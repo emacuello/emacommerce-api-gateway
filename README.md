@@ -22,8 +22,6 @@ Para el despliegue se ha usado Docker y Kubernetes.
 <br/>
 Para el monitoreo se ha usado Prometheus y Grafana.
 <br/>
-Se ha usado Keycloak como autenticación y autorización.
-<br/>
 Se ha hecho uso de Ingress Controllers para el balanceo de carga.
 <br/>
 Se ha usado Linkerd como servicio de enlace para la comunicación entre los microservicios.

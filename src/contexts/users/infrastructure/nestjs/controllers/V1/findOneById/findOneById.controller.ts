@@ -10,12 +10,13 @@ import { V1_ROUTES } from '../../routes';
 import { UserFindOneByIdUseCase } from 'src/contexts/users/application/userFindOneById/userFindOnebyId.use-case';
 import { UserNotFoundException } from 'src/contexts/users/domain/errors/not-found.exception';
 import { PrimitiveUser } from 'src/contexts/users/domain/entities/Users';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/utils/decorators/roles.decorator';
 import { Role } from 'src/utils/enums/role.enum';
 import { RolesGuard } from 'src/utils/guards/authorization.guard';
 
 @ApiTags(V1_ROUTES.NAME)
+@ApiBearerAuth()
 @Roles(Role.Admin)
 @UseGuards(RolesGuard)
 @Controller(V1_ROUTES.BASE)

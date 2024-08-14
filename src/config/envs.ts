@@ -11,6 +11,8 @@ interface Env {
   KAFKA_CLIENTID: string;
   KAFKA_CONSUMER: string;
   JWT_SECRET: string;
+  PROM_USER: string;
+  PROM_PASS: string;
 }
 const envsSchema = joi
   .object({
@@ -23,6 +25,8 @@ const envsSchema = joi
     KAFKA_CLIENTID: joi.string().required(),
     KAFKA_CONSUMER: joi.string().required(),
     JWT_SECRET: joi.string().required(),
+    PROM_USER: joi.string().required(),
+    PROM_PASS: joi.string().required(),
   })
   .unknown(true);
 
